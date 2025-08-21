@@ -62,8 +62,8 @@ class GuessController extends Controller
     {
         $guesses = $room->guesses()
             ->with('user')
-            ->orderBy('round_number', 'asc')
-            ->orderBy('submitted_at', 'asc')
+            ->orderBy('round_number', 'desc')
+            ->orderBy('submitted_at', 'desc')
             ->get();
 
         return response()->json($guesses);

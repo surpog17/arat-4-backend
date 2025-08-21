@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('game.{gameId}', function ($user, $gameId) {
-    return ['id' => $user->id, 'name' => $user->name];
+Broadcast::channel('room.{roomId}', function ($user, $roomId) {
+    return ['id' => $user->id, 'name' => $user->display_name];
 });
