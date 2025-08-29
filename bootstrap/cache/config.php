@@ -370,6 +370,72 @@
       ),
     ),
   ),
+  'mail' => 
+  array (
+    'default' => 'smtp',
+    'mailers' => 
+    array (
+      'smtp' => 
+      array (
+        'transport' => 'smtp',
+        'host' => 'mail.surafelkifle.com',
+        'port' => '587',
+        'encryption' => 'tls',
+        'username' => 'arat-4@surafelkifle.com',
+        'password' => 'Sura@2119',
+        'timeout' => NULL,
+        'local_domain' => NULL,
+      ),
+      'ses' => 
+      array (
+        'transport' => 'ses',
+      ),
+      'mailgun' => 
+      array (
+        'transport' => 'mailgun',
+      ),
+      'postmark' => 
+      array (
+        'transport' => 'postmark',
+      ),
+      'sendmail' => 
+      array (
+        'transport' => 'sendmail',
+        'path' => '/usr/sbin/sendmail -bs -i',
+      ),
+      'log' => 
+      array (
+        'transport' => 'log',
+        'channel' => NULL,
+      ),
+      'array' => 
+      array (
+        'transport' => 'array',
+      ),
+      'failover' => 
+      array (
+        'transport' => 'failover',
+        'mailers' => 
+        array (
+          0 => 'smtp',
+          1 => 'log',
+        ),
+      ),
+    ),
+    'from' => 
+    array (
+      'address' => 'arat-4@surafelkifle.com',
+      'name' => 'Arat ፬ App',
+    ),
+    'markdown' => 
+    array (
+      'theme' => 'default',
+      'paths' => 
+      array (
+        0 => 'C:\\Users\\IENetwork\\Desktop\\number-guessing-game\\backend\\resources\\views/vendor/mail',
+      ),
+    ),
+  ),
   'sanctum' => 
   array (
     'stateful' => 
