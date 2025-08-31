@@ -12,6 +12,7 @@ use App\Models\GameHistory;
 use App\Services\GameService;
 use App\Events\PlayerJoinedRoom;
 use App\Events\SecretNumberSet;
+use App\Events\GameReset;
 
 class RoomController extends Controller
 {
@@ -112,6 +113,53 @@ class RoomController extends Controller
             return response()->json(['message' => 'Secret number set successfully']);
         } catch (\InvalidArgumentException $e) {
             return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function playAgain(Request $request, Room $room)
+    {
+        // Check if user is in the room
+        $player = $room->players()->where('user_id', $request->user()->id)->first();
+        if (!$player) {
+            return response()->json(['error' => 'You are not a player in this room'], 403);
+        }
+
+        // Only allow play again if game has ended
+        if ($room->status !== 'ended') {
+            return response()->json(['error' => 'Game must be ended to play again'], 400);
+        }
+
+        try {
+            DB::transaction(function() use ($room) {
+                // Reset room state
+                $room->update([
+                    'status' => 'waiting',
+                    'winner_id' => null,
+                    'started_at' => null,
+                    'ended_at' => null
+                ]);
+
+                // Reset all players' secret numbers and guesses
+                $room->players()->update([
+                    'secret_number' => null,
+                    'has_set_secret' => false
+                ]);
+
+                // Delete all guesses for this room
+                $room->guesses()->delete();
+            });
+
+            $room->load('players.user');
+            
+            // Broadcast game reset event
+            event(new GameReset($room, $request->user()));
+            
+            return response()->json([
+                'message' => 'Room reset successfully',
+                'room' => $room
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to reset room'], 500);
         }
     }
 

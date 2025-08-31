@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/rooms/{room}/join', [RoomController::class, 'join']);
     Route::get('/rooms/{room}', [RoomController::class, 'show']);
     Route::post('/rooms/{room}/secret', [RoomController::class, 'setSecretNumber']);
+    Route::post('/rooms/{room}/play-again', [RoomController::class, 'playAgain']);
     Route::get('/rooms/{room}/history', [RoomController::class, 'getGameHistory']);
     Route::get('/rooms/{room}/guesses', [GuessController::class, 'getRoomGuesses']);
     
