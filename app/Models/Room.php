@@ -47,4 +47,9 @@ class Room extends Model
     {
         return $this->hasOne(GameHistory::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

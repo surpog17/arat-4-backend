@@ -103,6 +103,29 @@ class User extends Authenticatable implements CanResetPasswordContract
     }
 
     /**
+     * Get the messages sent by this user.
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Get the user's initials for avatar display.
+     */
+    public function getInitialsAttribute()
+    {
+        $name = $this->display_name ?? $this->name ?? 'Anonymous';
+        $words = explode(' ', $name);
+        
+        if (count($words) >= 2) {
+            return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+        }
+        
+        return strtoupper(substr($name, 0, 2));
+    }
+
+    /**
      * Send the password reset notification.
      *
      * @param  string  $token

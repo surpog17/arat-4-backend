@@ -2,7 +2,7 @@
 
 // Simple script to check if WebSocket server is running
 $host = '127.0.0.1';
-$port = 6001;
+$port = 6000;
 
 echo "Checking WebSocket server at {$host}:{$port}...\n";
 

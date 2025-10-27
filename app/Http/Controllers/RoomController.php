@@ -13,6 +13,7 @@ use App\Services\GameService;
 use App\Events\PlayerJoinedRoom;
 use App\Events\SecretNumberSet;
 use App\Events\GameReset;
+use App\Http\Controllers\ChatController;
 
 class RoomController extends Controller
 {
@@ -63,6 +64,10 @@ class RoomController extends Controller
         ]);
 
         $room->load('players.user');
+        
+        // Send system message to chat
+        $chatController = new ChatController();
+        $chatController->sendSystemMessage($room, $request->user()->display_name . ' joined the room',$request->user()->id);
         
         // If this is the second player joining, start the game
         if ($room->players()->count() === 2) {

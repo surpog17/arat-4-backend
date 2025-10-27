@@ -39,7 +39,12 @@ class GameEnded implements ShouldBroadcast
     {
         return [
             'room' => $this->room->load('players.user'),
-            'winner' => $this->winner
+            'winner' => $this->winner ? [
+                'id' => $this->winner->id,
+                'name' => $this->winner->name,
+                'display_name' => $this->winner->display_name,
+                'initials' => $this->winner->initials,
+            ] : null
         ];
     }
 }

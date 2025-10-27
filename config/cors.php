@@ -8,8 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    // Apply CORS to API routes and Sanctum's CSRF route
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // Apply CORS to API routes, Sanctum's CSRF route, and broadcasting auth
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'broadcasting/auth'],
 
     // Allow all HTTP methods
     'allowed_methods' => ['*'],

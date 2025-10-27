@@ -38,7 +38,17 @@ class GuessSubmitted implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'guess' => $this->guess->load('user'),
+            'guess' => [
+                'id' => $this->guess->id,
+                'guess' => $this->guess->guess,
+                'round_number' => $this->guess->round_number,
+                'user' => [
+                    'id' => $this->guess->user->id,
+                    'name' => $this->guess->user->name,
+                    'display_name' => $this->guess->user->display_name,
+                    'initials' => $this->guess->user->initials,
+                ]
+            ],
             'room' => $this->room->load('players.user')
         ];
     }

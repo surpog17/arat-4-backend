@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\GuessController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\ChatController;
 
 // Authentication routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -29,6 +30,10 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Gameplay
     Route::post('/rooms/{room}/guess', [GuessController::class, 'submit']);
+    
+    // Chat routes
+    Route::get('/rooms/{room}/messages', [ChatController::class, 'getMessages']);
+    Route::post('/rooms/{room}/messages', [ChatController::class, 'sendMessage']);
     
     // Global history
     Route::get('/history', [RoomController::class, 'getAllGameHistory']);

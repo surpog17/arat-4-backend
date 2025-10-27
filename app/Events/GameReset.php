@@ -47,7 +47,12 @@ class GameReset implements ShouldBroadcast
     {
         return [
             'room' => $this->room->load('players.user'),
-            'user' => $this->user,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'display_name' => $this->user->display_name,
+                'initials' => $this->user->initials,
+            ],
             'message' => $this->user->display_name . ' reset the game!'
         ];
     }
