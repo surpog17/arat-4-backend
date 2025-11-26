@@ -38,7 +38,7 @@ return new class extends Migration {
             $t->unsignedTinyInteger('position'); // count of correct digits in right position
             $t->unsignedTinyInteger('round_number');
             $t->boolean('is_winner')->default(false);
-            $t->timestamp('submitted_at');
+            $t->timestamp('submitted_at')->nullable();
             $t->timestamps();
         });
 
@@ -48,8 +48,8 @@ return new class extends Migration {
             $t->foreignId('winner_id')->nullable()->constrained('users');
             $t->enum('result', ['player1_win', 'player2_win', 'draw'])->nullable();
             $t->unsignedTinyInteger('total_rounds')->default(0);
-            $t->timestamp('started_at');
-            $t->timestamp('ended_at');
+            $t->timestamp('started_at')->nullable();
+            $t->timestamp('ended_at')->nullable();
             $t->timestamps();
         });
     }
